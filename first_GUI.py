@@ -13,6 +13,16 @@ window.geometry('350x150')
 #Set the naem of the window
 window.title("Henry's Searches")
 
+searches = {'Google search' : {
+                'https://www.google.com/search?q=' : ''},
+        'Google maps search' : { 
+                'https://www.google.co.uk/maps/search/' : ''},
+        'Netflix search' : {
+                'https://www.netflix.com/search?q=' : ''},
+        'Amazon Prime video search' : {
+                'https://www.amazon.co.uk/s?i=instant-video&k=' : '&ref=nb_sb_noss_2&url=search-alias%3Dinstant-video'}
+        }
+
 class Search:
     def __init__(self,label, URL_1, URL_2, rows):
         self.label = label
@@ -34,18 +44,14 @@ class Search:
                 
         bt = tkinter.Button(window, text = "Enter", command = clicked)
         bt.grid(row = self.rows, column = 2)      
-                        
-maps = Search('Google maps search', 'https://www.google.co.uk/maps/search/','',0)
-maps.show()
+   
+count = 0
 
-netflix = Search('Netflix search','https://www.netflix.com/search?q=','',1)
-netflix.show()
-
-prime_video = Search('Amazon Prime video search','https://www.amazon.co.uk/s?i=instant-video&k=','&ref=nb_sb_noss_2&url=search-alias%3Dinstant-video',2)
-prime_video.show() 
-
-google_search = Search('Google search','https://www.google.com/search?q=','',3)
-google_search.show()
+for search, sub_dic in searches.items():
+    for URL_1,URL_2 in sub_dic.items():
+        site = Search(search,URL_1,URL_2,count)
+        site.show()
+    count += 1
 
 #excutes the window
 window.mainloop()
