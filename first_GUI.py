@@ -5,7 +5,7 @@ Created on Sat Mar 21 14:39:41 2020
 @author: Henry
 """
 
-import tkinter, webbrowser
+import tkinter, webbrowser, pyautogui
 
 #Creates the GUI window in the computer memory
 window = tkinter.Tk() 
@@ -52,6 +52,32 @@ for search, sub_dic in searches.items():
         site = Search(search,URL_1,URL_2,count)
         site.show()
     count += 1
+    
+class DisneySearch(Search):
+    
+    def show(self):
+                
+        shown = tkinter.Label(window,text = self.label, font=('Arial',11))
+        shown.grid(row = self.rows, column = 0)
+        
+        txt = tkinter.Entry(window, width = 15)
+        txt.grid(row = self.rows, column = 1)
+    
+        def clicked():
+            if len(txt.get()) > 1:
+                webbrowser.open(str(self.URL_1))
+                pyautogui.sleep(0.5)
+                pyautogui.click(40,227)
+                pyautogui.sleep(5.5)
+                pyautogui.write(txt.get())
+                pyautogui.write(['enter'])
+        
+        bt = tkinter.Button(window, text = "Enter", command = clicked)
+        bt.grid(row = self.rows, column = 2)
+                
+disney = DisneySearch('Disney Plus Search','https://www.disneyplus.com/search','',count)
+disney.show()
+count += 1
 
 #excutes the window
 window.mainloop()
